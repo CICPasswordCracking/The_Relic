@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Relic - Black Challenge</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Rajdhani:wght@300;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: linear-gradient(135deg, #000000 0%, #0d0d0d 50%, #000000 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+            color: #fff;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            font-family: 'Audiowide', cursive;
+            font-size: 42px;
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(51, 51, 51, 0.8);
+        }
+        
+        .level-indicator {
+            text-align: center;
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 40px;
+            letter-spacing: 2px;
+        }
+        
+        .challenge-section {
+            background: rgba(255, 255, 255, 0.02);
+            border: 2px solid rgba(51, 51, 51, 0.5);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .section-title {
+            font-size: 24px;
+            color: #666;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .mystery-box {
+            background: rgba(255, 0, 0, 0.1);
+            border: 2px solid rgba(255, 0, 0, 0.5);
+            border-radius: 10px;
+            padding: 25px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .mystery-word {
+            font-size: 32px;
+            font-weight: 600;
+            color: #ff6b6b;
+            letter-spacing: 4px;
+            margin: 10px 0;
+            text-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
+        }
+        
+        .examples-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .example-pair {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(51, 51, 51, 0.3);
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+        }
+        
+        .example-label {
+            font-size: 12px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+        
+        .example-text {
+            font-family: monospace;
+            font-size: 18px;
+            color: #fff;
+            margin: 5px 0;
+        }
+        
+        .arrow {
+            font-size: 20px;
+            color: #666;
+            margin: 5px 0;
+        }
+        
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(51, 51, 51, 0.5);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 18px;
+            font-family: 'Rajdhani', sans-serif;
+            transition: all 0.3s ease;
+        }
+        
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #333;
+            box-shadow: 0 0 15px rgba(51, 51, 51, 0.3);
+        }
+        
+        .submit-section {
+            background: rgba(0, 255, 0, 0.05);
+            border: 2px solid rgba(0, 255, 0, 0.3);
+        }
+        
+        .submit-button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #00ff88 0%, #00cc66 100%);
+            border: none;
+            border-radius: 8px;
+            color: #000;
+            font-size: 18px;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+        }
+        
+        .submit-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 255, 136, 0.4);
+        }
+        
+        .error {
+            color: #ff6b6b;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+        
+        .success {
+            color: #00ff88;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+        
+        .hint {
+            background: rgba(255, 255, 0, 0.1);
+            border: 1px solid rgba(255, 255, 0, 0.3);
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+            color: #ffeb3b;
+            font-size: 14px;
+        }
+        
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .victory-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: #000;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            animation: fadeIn 0.5s;
+            padding: 0;
+        }
+
+        .victory-content {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        #victoryVideo {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border: none;
+            box-shadow: none;
+        }
+
+        .return-button {
+            position: absolute;
+            bottom: 40px;
+            padding: 15px 30px;
+            background: rgba(0, 255, 136, 0.9);
+            color: #000;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 18px;
+            font-family: 'Rajdhani', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.5);
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .return-button:hover {
+            background: rgba(0, 255, 136, 1);
+            box-shadow: 0 0 50px rgba(0, 255, 136, 0.8);
+            transform: scale(1.05);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .warning-text {
+            background: rgba(255, 165, 0, 0.1);
+            border: 1px solid rgba(255, 165, 0, 0.3);
+            border-radius: 8px;
+            padding: 15px;
+            color: #ffa500;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+     
+        .terminal-screen {
+            width: 100%;
+            height: 100%;
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+        }
+
+        .terminal-content {
+            font-family: 'Courier New', monospace;
+            color: #00ff00;
+            font-size: 24px;
+            line-height: 1.8;
+            text-shadow: 0 0 10px #00ff00;
+            max-width: 900px;
+        }
+
+        .terminal-prompt {
+            color: #00ffff;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px #00ffff;
+            animation: fadeIn 0.3s;
+        }
+
+        .terminal-message {
+            color: #00ff00;
+            margin-top: 30px;
+            white-space: pre-wrap;
+            display: inline;
+        }
+
+        .terminal-cursor {
+            display: inline;
+            color: #00ff00;
+            animation: blink 0.7s infinite;
+            margin-left: 2px;
+        }
+
+        @keyframes blink {
+            0%, 49% { opacity: 1; }
+            50%, 100% { opacity: 0; }
+        }
+
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    
+    
+    <div class="container">
+        <h1>Black Challenge</h1>
+        <div class="level-indicator">LEVEL 3 -</div>
+         <div class="level-indicator">Sniff the pairs! HACK THE NETWORK!</div>
+        
+        
+        <div class="challenge-section mystery-box">
+            <div class="section-title"> Decrypt This Word</div>
+            <div class="mystery-word" id="mysteryEncrypted">FRPERG</div>
+            <p style="color: rgba(255,255,255,0.7); margin-top: 10px;">
+                No testing available. Study the examples below!
+            </p>
+        </div>
+        
+        
+        <div class="challenge-section">
+            <div class="section-title"> Example Pairs</div>
+            <div class="warning-text">
+                 NO TESTING AVAILABLE - You must figure it out from these examples alone!
+            </div>
+            <p style="color: rgba(255,255,255,0.7); margin-bottom: 20px;">
+                Study these plaintext → ciphertext pairs carefully:
+            </p>
+            
+            <div class="examples-grid">
+                <div class="example-pair">
+                    <div class="example-label">Plain</div>
+                    <div class="example-text">HELLO</div>
+                    <div class="arrow">↓</div>
+                    <div class="example-label">Cipher</div>
+                    <div class="example-text">URYYB</div>
+                </div>
+                
+                <div class="example-pair">
+                    <div class="example-label">Plain</div>
+                    <div class="example-text">WORLD</div>
+                    <div class="arrow">↓</div>
+                    <div class="example-label">Cipher</div>
+                    <div class="example-text">JBEYQ</div>
+                </div>
+                
+                <div class="example-pair">
+                    <div class="example-label">Plain</div>
+                    <div class="example-text">CODE</div>
+                    <div class="arrow">↓</div>
+                    <div class="example-label">Cipher</div>
+                    <div class="example-text">PBQR</div>
+                </div>
+                
+                <div class="example-pair">
+                    <div class="example-label">Plain</div>
+                    <div class="example-text">BREAK</div>
+                    <div class="arrow">↓</div>
+                    <div class="example-label">Cipher</div>
+                    <div class="example-text">OERNX</div>
+                </div>
+                
+                <div class="example-pair">
+                    <div class="example-label">Plain</div>
+                    <div class="example-text">CIPHER</div>
+                    <div class="arrow">↓</div>
+                    <div class="example-label">Cipher</div>
+                    <div class="example-text">PVCURE</div>
+                </div>
+                
+
+            </div>
+            
+            <div class="hint">
+                <strong>Hint:</strong> i wont give u any hint come on
+            </div>
+        </div>
+        
+
+        <div class="challenge-section submit-section">
+            <div class="section-title"> Submit Your Answer</div>
+            <p style="color: rgba(255,255,255,0.7); margin-bottom: 20px;">
+                What is the decrypted version of <strong style="color: #ff6b6b;">FRPERG</strong>?
+            </p>
+            
+            <input type="text" id="answerInput" placeholder="Enter your answer...">
+            <button class="submit-button" onclick="submitAnswer()">Submit Answer</button>
+            
+            <div id="answerFeedback"></div>
+        </div>
+    </div>
+
+    
+    <div class="victory-overlay" id="victoryOverlay">
+       
+        <div class="terminal-screen" id="terminalScreen">
+            <div class="terminal-content">
+                <div class="terminal-prompt">&gt;&gt; SYSTEM ACCESS GRANTED</div>
+                <div class="terminal-prompt">&gt;&gt; DECRYPTION COMPLETE</div>
+                <div class="terminal-prompt">&gt;&gt; LOADING MESSAGE...</div>
+                <div class="terminal-message" id="terminalMessage"></div>
+                <div class="terminal-cursor" id="terminalCursor">_</div>
+            </div>
+        </div>
+        
+        
+        <div class="victory-content" id="videoScreen" style="display: none;">
+            <video id="victoryVideo" autoplay>
+                <source src="vectory.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
+
+    <script>
+        const MYSTERY_WORD = "SECRET";
+        const MYSTERY_ENCRYPTED = "FRPERG";
+        
+        
+        if (!localStorage.getItem('grayCompleted')) {
+            window.location.href = 'index.html';
+        }
+        
+        function submitAnswer() {
+            const answer = document.getElementById('answerInput').value.trim().toUpperCase();
+            const feedback = document.getElementById('answerFeedback');
+            
+            if (!answer) {
+                feedback.innerHTML = '<div class="error">Please enter an answer!</div>';
+                return;
+            }
+            
+            if (answer === MYSTERY_WORD) {
+                localStorage.setItem('blackCompleted', 'true');
+                document.getElementById('victoryOverlay').style.display = 'flex';
+                
+                
+                startTerminalSequence();
+            } else {
+                feedback.innerHTML = '<div class="error"> Incorrect! sorry but nope</div>';
+            }
+        }
+        
+        function startTerminalSequence() {
+            const message = "Well done, warrior… you survived this war. But tell me—are you ready for the battles yet to come? Stay sharp. Miss even one step… and you may not rise again.";
+            const messageEl = document.getElementById('terminalMessage');
+            const cursorEl = document.getElementById('terminalCursor');
+            let index = 0;
+            
+            
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            
+            function playTypingSound() {
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.value = 800;
+                oscillator.type = 'square';
+                
+                gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.05);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.05);
+            }
+            
+            function typeCharacter() {
+                if (index < message.length) {
+                    messageEl.textContent += message[index];
+                    
+                    
+                    if (message[index] !== ' ') {
+                        playTypingSound();
+                    }
+                    
+                    index++;
+                    
+                   
+                    const delay = message[index - 1] === '.' ? 400 : 
+                                  message[index - 1] === ',' ? 200 : 
+                                  message[index - 1] === '…' ? 300 :
+                                  Math.random() * 50 + 30;
+                    
+                    setTimeout(typeCharacter, delay);
+                } else {
+                    
+                    cursorEl.style.display = 'none';
+                    setTimeout(showVideo, 2000);
+                }
+            }
+            
+            
+            setTimeout(typeCharacter, 1500);
+        }
+
+        function showVideo() {
+    const terminalScreen = document.getElementById('terminalScreen');
+    const videoScreen = document.getElementById('videoScreen');
+    const video = document.getElementById('victoryVideo');
+    
+    
+    terminalScreen.style.animation = 'fadeOut 1s forwards';
+    
+    setTimeout(() => {
+        terminalScreen.style.display = 'none';
+        videoScreen.style.display = 'flex';
+        
+        video.onended = () => {
+            window.location.href = 'index.html';
+        };
+        
+        
+        video.play().catch(e => console.log("Video play failed:", e));
+    }, 1000);
+}       
+        document.getElementById('answerInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') submitAnswer();
+        });
+    </script>
+    
+</body>
+</html>

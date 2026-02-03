@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Relic</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Rajdhani:wght@300;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            overflow: hidden;
+            background: #000;
+        }
+        
+        #game-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #0a0a1a 0%, #1a0a2e 50%, #0a0a1a 100%);
+            padding: 40px;
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        h1 {
+            font-family: 'Audiowide', cursive;
+            font-size: 48px;
+            color: #a683ff;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 30px;
+            text-align: center;
+            max-width: 1200px;
+            line-height: 1.4;
+            text-shadow: 
+                0 0 20px rgba(205, 93, 175, 0.8),
+                0 0 40px rgba(203, 127, 216, 0.6);
+            animation: titleGlow 2s ease-in-out infinite;
+        }
+        
+        @keyframes titleGlow {
+            0%, 100% { 
+                text-shadow: 
+                    0 0 20px rgba(0, 212, 255, 0.8),
+                    0 0 40px rgba(0, 212, 255, 0.6);
+            }
+            50% { 
+                text-shadow: 
+                    0 0 30px rgba(0, 212, 255, 1),
+                    0 0 60px rgba(0, 212, 255, 0.8);
+            }
+        }
+        
+        .subtitle {
+            font-size: 22px;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 60px;
+            letter-spacing: 3px;
+            text-align: center;
+            font-weight: 300;
+        }
+        
+        /* Box Container */
+        .boxes-container {
+            display: flex;
+            gap: 50px;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            max-width: 1400px;
+        }
+        
+        /* Individual Box Styles */
+        .game-box {
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+        
+        .game-box:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(166, 131, 255, 0.6);
+        }
+        
+        .game-box img {
+            display: block;
+            border-radius: 15px;
+            width: 300px;
+            height: 300px;
+            object-fit: cover;
+        }
+
+        /* Placeholder for missing image */
+        .placeholder-box {
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(135deg, #2a2a3a 0%, #4a4a5a 100%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: rgba(255, 255, 255, 0.6);
+            border: 2px solid rgba(166, 131, 255, 0.3);
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="game-container">
+        <h1>"Almost there..."</h1>
+        
+        <p class="subtitle">ONE BY ONE UNTIL VICTORY </p>
+        
+        <div class="boxes-container">
+            
+            <div class="game-box" onclick="goToGame('gray')">
+                <img src="gray.png" alt="gray Path" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'placeholder-box\'>White Path</div>';">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        
+        function goToGame(color) {
+            window.location.href = `game-${color}.html`;
+        }
+    </script>
+    
+</body>
+</html>
